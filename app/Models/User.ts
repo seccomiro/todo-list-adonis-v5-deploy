@@ -10,9 +10,12 @@ import {
   HasMany,
   manyToMany,
   ManyToMany,
+  hasManyThrough,
+  HasManyThrough,
 } from '@ioc:Adonis/Lucid/Orm'
 import Setting from './Setting'
 import List from './List'
+import Task from './Task'
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })
@@ -51,4 +54,7 @@ export default class User extends BaseModel {
 
   @manyToMany(() => List)
   public listsSharedWithMe: ManyToMany<typeof List>
+
+  @hasManyThrough([() => Task, () => List])
+  public tasks: HasManyThrough<typeof Task>
 }
