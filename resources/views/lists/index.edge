@@ -1,0 +1,25 @@
+@layout('layout/app')
+
+@section('content')
+  <h2>Suas Listas</h2>
+  <a href="{{ route('lists.create') }}" class="btn btn-primary">Nova Lista</a>
+  <ul class="list-group mt-3">
+    @each(list in lists)
+      <li class="list-group-item d-flex justify-content-between">
+        <div class="name">{{ list.name }}</div>
+        <div class="actions">
+          <a href="{{ route('lists.show', { id: list.id }) }}" class="btn btn-primary">Visualizar</a>
+          <a href="{{ route('lists.edit', { id: list.id }) }}" class="btn btn-primary">Editar</a>
+          <form
+            style="display: inline;"
+            method="post"
+            action="{{
+              route('lists.destroy', { id: list.id, qs: { _method: 'DELETE' } })
+            }}">
+              <button type="submit" class="btn btn-primary">Apagar</button>
+          </form>
+        </div>
+      </li>
+    @endeach
+  </ul>
+@endsection

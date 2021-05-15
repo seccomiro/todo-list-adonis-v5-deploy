@@ -1,0 +1,9 @@
+@layout('layout/app')
+
+@section('content')
+  <h2>{{ list.name }}</h2>
+
+  <div>
+    <a href="{{ route('lists.index') }}" class="btn btn-link">Voltar</a>
+  </div>
+@endsection
