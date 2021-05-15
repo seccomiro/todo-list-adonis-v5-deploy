@@ -1,5 +1,6 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, belongsTo, column, BelongsTo } from '@ioc:Adonis/Lucid/Orm'
+import List from './List'
 
 export default class Task extends BaseModel {
   @column({ isPrimary: true })
@@ -22,4 +23,7 @@ export default class Task extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
+
+  @belongsTo(() => List)
+  public list: BelongsTo<typeof List>
 }
