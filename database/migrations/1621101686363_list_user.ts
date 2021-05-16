@@ -7,7 +7,7 @@ export default class ListUser extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.integer('user_id').unsigned().notNullable().references('id').inTable('users')
       table.integer('list_id').unsigned().notNullable().references('id').inTable('lists')
-      table.timestamps(true)
+      table.timestamps(true, true)
       table.primary(['user_id', 'list_id'])
     })
   }
