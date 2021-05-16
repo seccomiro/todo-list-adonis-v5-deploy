@@ -10,7 +10,7 @@ export default class ListsController {
   }
 
   public async show({ params, view, auth }: HttpContextContract) {
-    const list = await this.getList(auth, params.id)
+    const list = await this.getList(auth, params.id, true)
     return view.render('lists/show', { list })
   }
 
@@ -44,8 +44,12 @@ export default class ListsController {
     response.redirect().toRoute('lists.index')
   }
 
-  private async getList(auth: AuthContract, id): Promise<List> {
+  private async getList(auth: AuthContract, id, preload = false): Promise<List> {
     const user = auth.user!!
-    return await user.related('lists').query().where('id', id).firstOrFail()
+    if (preload) {
+      return await user.related('lists').query().where('id', id).preload('tasks').firstOrFail()
+    } else {
+      return await user.related('lists').query().where('id', id).firstOrFail()
+    }
   }
 }
