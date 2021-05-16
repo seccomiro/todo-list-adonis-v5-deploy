@@ -1,9 +1,9 @@
 import Route from '@ioc:Adonis/Core/Route'
 
 Route.group(() => {
-  Route.resource('tasks', 'TasksController')
-  Route.get('/tasks/:id/done', 'TasksController.done').as('tasks.done')
   Route.resource('lists', 'ListsController')
+  Route.resource('lists.tasks', 'TasksController')
+  Route.get('/lists/:list_id/tasks/:id/done', 'TasksController.done').as('lists.tasks.done')
 }).middleware('auth')
 
 Route.get('/register', 'AuthController.register').as('auth.register')

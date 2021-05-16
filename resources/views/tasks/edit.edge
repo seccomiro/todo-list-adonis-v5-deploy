@@ -2,7 +2,7 @@
 
 @section('content')
   <h2>Editando Tarefa</h2>
-  <form action="{{ route('tasks.update', { id: task.id, qs: { _method: 'PATCH' } }) }}" method="POST">
+  <form action="{{ route('lists.tasks.update', { id: task.id, list_id: list.id, qs: { _method: 'PATCH' } }) }}" method="POST">
     <div class="mb-3">
       <label for="title" class="form-label">Título</label>
       <input class="form-control" type="text" name="title" id="title" value="{{ task.title }}">
@@ -13,7 +13,7 @@
     </div>
     <div>
       <button type="submit" class="btn btn-primary">Atualizar</button>
-      <a href="{{ route('tasks.index') }}" class="btn btn-link">Voltar</a>
+      <a href="{{ route('lists.tasks.index', { list_id: list.id }) }}" class="btn btn-link">Voltar</a>
     </div>
   </form>
 @endsection

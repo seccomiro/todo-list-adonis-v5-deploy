@@ -9,11 +9,6 @@ export default class ListsController {
     return view.render('lists/index', { lists })
   }
 
-  public async show({ params, view, auth }: HttpContextContract) {
-    const list = await this.getList(auth, params.id, true)
-    return view.render('lists/show', { list })
-  }
-
   public async create({ view }: HttpContextContract) {
     return view.render('lists/create')
   }

@@ -8,7 +8,7 @@
       <li class="list-group-item d-flex justify-content-between">
         <div class="name">{{ list.name }}</div>
         <div class="actions">
-          <a href="{{ route('lists.show', { id: list.id }) }}" class="btn btn-primary">Visualizar</a>
+          <a href="{{ route('lists.tasks.index', { list_id: list.id }) }}" class="btn btn-primary">Visualizar</a>
           <a href="{{ route('lists.edit', { id: list.id }) }}" class="btn btn-primary">Editar</a>
           <form
             style="display: inline;"

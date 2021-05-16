@@ -2,7 +2,7 @@
 
 @section('content')
   <h2>Suas Tarefas</h2>
-  <a href="{{ route('tasks.create') }}" class="btn btn-primary">Nova Tarefa</a>
+  <a href="{{ route('lists.tasks.create', { list_id: list.id }) }}" class="btn btn-primary">Nova Tarefa</a>
   <ul class="list-group mt-3">
     @each(task in tasks)
       <li class="list-group-item d-flex justify-content-between">
@@ -14,16 +14,16 @@
         @endif
         </div>
         <div class="actions">
-          <a href="{{ route('tasks.show', { id: task.id }) }}" class="btn btn-primary">Visualizar</a>
-          <a href="{{ route('tasks.done', { id: task.id }) }}" class="btn btn-primary">
+          <a href="{{ route('lists.tasks.show', { id: task.id, list_id: list.id }) }}" class="btn btn-primary">Visualizar</a>
+          <a href="{{ route('lists.tasks.done', { id: task.id, list_id: list.id }) }}" class="btn btn-primary">
             {{ task.done ? 'Desfazer' : 'Fazer' }}
           </a>
-          <a href="{{ route('tasks.edit', { id: task.id }) }}" class="btn btn-primary">Editar</a>
+          <a href="{{ route('lists.tasks.edit', { id: task.id, list_id: list.id }) }}" class="btn btn-primary">Editar</a>
           <form
             style="display: inline;"
             method="post"
             action="{{
-              route('tasks.destroy', { id: task.id, qs: { _method: 'DELETE' } })
+              route('lists.tasks.destroy', { id: task.id, list_id: list.id, qs: { _method: 'DELETE' } })
             }}">
               <button type="submit" class="btn btn-primary">Apagar</button>
           </form>
