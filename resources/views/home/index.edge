@@ -1,5 +1,51 @@
 @layout('layout/app')
 
 @section('content')
-  <p>Seja bem vindo.</p>
+  <div class="row">
+    <div class="col">
+      <h2>Minhas Listas</h2>
+      <ul class="list-group mt-3">
+        @each(list in myLists)
+          <li class="list-group-item d-flex justify-content-between">
+            <a href="{{ route('lists.tasks.index', { list_id: list.id }) }}" class="btn btn-link">{{ list.name }}</a>
+          </li>
+        @endeach
+      </ul>
+    </div>
+    <div class="col">
+      <h2>Listas compartilhadas comigo</h2>
+
+
+      <div class="accordion" id="accordionExample">
+        @each(list in listsSharedWithMe)
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="list-{{ list.id }}">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-list-{{ list.id }}" aria-expanded="true" aria-controls="collapse-list-{{ list.id }}">
+                <div class="name">
+                  {{ list.name }}
+                  <span class="badge rounded-pill bg-secondary">{{ list.user.name }}</span>
+                </div>
+              </button>
+            </h2>
+            <div id="collapse-list-{{ list.id }}" class="accordion-collapse collapse" aria-labelledby="list-{{ list.id }}" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <ul class="list-group mt-3">
+                  @each(task in list.tasks)
+                    <li class="list-group-item d-flex justify-content-between">
+                      @if(task.done)
+                        <del>{{ task.title }}</del>
+                      @else
+                        {{ task.title }}
+                      @endif
+                    </li>
+                  @endeach
+                </ul>
+              </div>
+            </div>
+          </div>
+        @endeach
+      </div>
+
+    </div>
+  </div>
 @endsection

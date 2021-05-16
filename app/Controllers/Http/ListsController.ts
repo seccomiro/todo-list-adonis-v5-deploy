@@ -39,6 +39,13 @@ export default class ListsController {
     response.redirect().toRoute('lists.index')
   }
 
+  public async share({ params, response, auth, request }: HttpContextContract) {
+    const list = await this.getList(auth, params.id)
+    const userId = request.input('user_id')
+    await list.related('sharedWithUsers').attach([userId])
+    response.redirect().toRoute('lists.tasks.index', { list_id: list.id })
+  }
+
   private async getList(auth: AuthContract, id, preload = false): Promise<List> {
     const user = auth.user!!
     if (preload) {

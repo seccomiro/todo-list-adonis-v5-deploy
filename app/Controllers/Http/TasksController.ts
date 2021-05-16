@@ -2,12 +2,14 @@ import { AuthContract } from '@ioc:Adonis/Addons/Auth'
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import List from 'App/Models/List'
 import Task from 'App/Models/Task'
+import User from 'App/Models/User'
 
 export default class TasksController {
   public async index({ view, auth, params }: HttpContextContract) {
     const list = await this.getList(auth, params.list_id)
     const tasks = await this.getTasks(auth, params)
-    return view.render('tasks/index', { tasks, list })
+    const usersToShare = await User.query().where('id', '<>', auth.user!!.id)
+    return view.render('tasks/index', { tasks, list, usersToShare })
   }
 
   public async show({ params, view, auth }: HttpContextContract) {

@@ -1,8 +1,25 @@
 @layout('layout/app')
 
 @section('content')
-  <h2>Suas Tarefas</h2>
-  <a href="{{ route('lists.tasks.create', { list_id: list.id }) }}" class="btn btn-primary">Nova Tarefa</a>
+  <h2>{{ list.name }}</h2>
+  <div class="mb-3">
+    <a href="{{ route('lists.tasks.create', { list_id: list.id }) }}" class="btn btn-primary">Nova Tarefa</a>
+  </div>
+  <div class="share">
+    <form action="{{ route('lists.share', { id: list.id }) }}" method="POST">
+      <div class="mb-3">
+        <select class="form-select" name="user_id">
+          <option selected>Selecione um usuário para compartilhar...</option>
+          @each(user in usersToShare)
+            <option value="{{ user.id }}">{{ user.name }}</option>
+          @endeach
+        </select>
+      </div>
+      <div>
+        <button type="submit" class="btn btn-primary">Compartilhar</button>
+      </div>
+    </form>
+  </div>
   <ul class="list-group mt-3">
     @each(task in tasks)
       <li class="list-group-item d-flex justify-content-between">
