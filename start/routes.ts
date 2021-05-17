@@ -5,6 +5,8 @@ Route.group(() => {
   Route.post('/lists/:id/share', 'ListsController.share').as('lists.share')
   Route.resource('lists.tasks', 'TasksController')
   Route.get('/lists/:list_id/tasks/:id/done', 'TasksController.done').as('lists.tasks.done')
+  Route.get('/settings', 'SettingsController.index').as('settings.index')
+  Route.post('/settings', 'SettingsController.store').as('settings.store')
 }).middleware('auth')
 
 Route.get('/register', 'AuthController.register').as('auth.register')

@@ -10,7 +10,10 @@
     <title>Lista de Tarefas</title>
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="
+      navbar navbar-expand-lg
+      navbar-{{ (await auth.user?.related('setting').query().first())?.theme || 'light' }}
+      bg-{{ (await auth.user?.related('setting').query().first())?.theme || 'light' }}">
       <div class="container">
         <a class="navbar-brand" href="{{ route('root') }}">Lista de Tarefas</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,6 +32,7 @@
                   {{ auth.user?.name }}
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="{{ route('settings.index') }}">Configurações</a></li>
                   <li><a class="dropdown-item" href="{{ route('auth.logout') }}">Sair</a></li>
                 </ul>
               </li>
