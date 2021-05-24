@@ -3,10 +3,7 @@
 @section('content')
   <h2>Nova Lista</h2>
   <form action="{{ route('lists.store') }}" method="POST">
-    <div class="mb-3">
-      <label for="name" class="form-label">Nome</label>
-      <input class="form-control" type="text" name="name" id="name">
-    </div>
+    @include('lists/form')
     <div>
       <button type="submit" class="btn btn-primary">Cadastrar</button>
       <a href="{{ route('lists.index') }}" class="btn btn-link">Voltar</a>

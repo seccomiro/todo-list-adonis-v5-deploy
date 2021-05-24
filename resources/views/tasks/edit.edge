@@ -3,13 +3,13 @@
 @section('content')
   <h2>Editando Tarefa</h2>
   <form action="{{ route('lists.tasks.update', { id: task.id, list_id: list.id, qs: { _method: 'PATCH' } }) }}" method="POST">
-    <div class="mb-3">
-      <label for="title" class="form-label">Título</label>
-      <input class="form-control" type="text" name="title" id="title" value="{{ task.title }}">
-    </div>
+    @include('tasks/form')
     <div class="mb-3">
       <label for="description" class="form-label">Descrição</label>
-      <input class="form-control" type="text" name="description" id="description" value="{{ task.description || '' }}">
+      <input class="form-control" type="text" name="description" id="description" value="{{ flashMessages.get('description', task.description) || '' }}">
+      @if(flashMessages.has('errors.description'))
+        <small class="text-danger">{{ flashMessages.get('errors.description') }}</small>
+      @endif
     </div>
     <div>
       <button type="submit" class="btn btn-primary">Atualizar</button>

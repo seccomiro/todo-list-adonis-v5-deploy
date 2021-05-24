@@ -3,10 +3,7 @@
 @section('content')
   <h2>Nova Tarefa</h2>
   <form action="{{ route('lists.tasks.store', { list_id: list.id }) }}" method="POST">
-    <div class="mb-3">
-      <label for="title" class="form-label">Título</label>
-      <input class="form-control" type="text" name="title" id="title">
-    </div>
+    @include('tasks/form')
     <div>
       <button type="submit" class="btn btn-primary">Cadastrar</button>
       <a href="{{ route('lists.tasks.index', { list_id: list.id }) }}" class="btn btn-link">Voltar</a>

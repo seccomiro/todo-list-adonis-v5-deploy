@@ -49,6 +49,17 @@
       </div>
     </nav>
     <div class="container page-body">
+      @if(flashMessages.has('notice'))
+        <div class="alert alert-success">
+          {{ flashMessages.get('notice') }}
+        </div>
+      @endif
+      @if(flashMessages.has('error'))
+        <div class="alert alert-danger">
+          {{ flashMessages.get('error') }}
+        </div>
+      @endif
+
       @!section('content')
     </div>
   </body>

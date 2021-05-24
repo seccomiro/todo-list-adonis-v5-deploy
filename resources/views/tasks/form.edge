@@ -1,0 +1,7 @@
+<div class="mb-3">
+  <label for="title" class="form-label">Título</label>
+  <input class="form-control" type="text" name="title" id="title" value="{{ flashMessages.get('title', task.title) || '' }}">
+  @if(flashMessages.has('errors.title'))
+    <small class="text-danger">{{ flashMessages.get('errors.title') }}</small>
+  @endif
+</div>

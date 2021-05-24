@@ -1,0 +1,7 @@
+<div class="mb-3">
+  <label for="name" class="form-label">Nome</label>
+  <input class="form-control" type="text" name="name" id="name" value="{{ flashMessages.get('name', list.name) || '' }}">
+  @if(flashMessages.has('errors.name'))
+    <small class="text-danger">{{ flashMessages.get('errors.name') }}</small>
+  @endif
+</div>
