@@ -1,6 +1,7 @@
 import { AuthContract } from '@ioc:Adonis/Addons/Auth'
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import List from 'App/Models/List'
+import ListValidator from 'App/Validators/ListValidator'
 
 export default class ListsController {
   public async index({ view, auth }: HttpContextContract) {
@@ -17,9 +18,7 @@ export default class ListsController {
   public async store({ request, response, auth, session }: HttpContextContract) {
     const data = request.only(['name'])
 
-    if (!this.validate(data, session)) {
-      return response.redirect().back()
-    }
+    await request.validate(ListValidator)
 
     const user = auth.user
     await List.create({ ...data, userId: user?.id })
@@ -36,9 +35,7 @@ export default class ListsController {
     const list = await this.getList(auth, params.id)
     const data = request.only(['name'])
 
-    if (!this.validate(data, session)) {
-      return response.redirect().back()
-    }
+    await request.validate(ListValidator)
 
     list.merge(data)
     list.save()
@@ -68,29 +65,5 @@ export default class ListsController {
     } else {
       return await user.related('lists').query().where('id', id).firstOrFail()
     }
-  }
-
-  private validate(data, session): Boolean {
-    const errors = {}
-
-    if (!data.name) {
-      this.registerError(errors, 'name', 'Campo obrigatório')
-    }
-
-    if (Object.entries(errors).length > 0) {
-      session.flash('error', 'Erro ao salvar a lista.')
-      session.flash('errors', errors)
-      session.flashAll()
-      return false
-    }
-
-    return true
-  }
-
-  private registerError(errors, attribute, error) {
-    if (!errors[attribute]) {
-      errors[attribute] = []
-    }
-    errors[attribute].push(error)
   }
 }

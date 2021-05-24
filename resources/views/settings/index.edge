@@ -11,6 +11,9 @@
           <option value="{{ theme }}" {{ setting?.theme === theme ? 'selected' : '' }}>{{ theme }}</option>
         @endeach
       </select>
+      @if(flashMessages.has('errors.theme'))
+        <small class="text-danger">{{ flashMessages.get('errors.theme') }}</small>
+      @endif
     </div>
     <div>
       <button type="submit" class="btn btn-primary">Salvar</button>
