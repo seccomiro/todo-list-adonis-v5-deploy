@@ -3,6 +3,7 @@
 @section('content')
   <h2>Editando Lista</h2>
   <form action="{{ route('lists.update', { id: list.id, qs: { _method: 'PATCH' } }) }}" method="POST">
+    {{ csrfField() }}
     @include('lists/form')
     <div>
       <button type="submit" class="btn btn-primary">Atualizar</button>

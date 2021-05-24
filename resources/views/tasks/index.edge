@@ -7,6 +7,7 @@
   </div>
   <div class="share">
     <form action="{{ route('lists.share', { id: list.id }) }}" method="POST">
+      {{ csrfField() }}
       <div class="mb-3">
         <select class="form-select" name="user_id">
           <option selected>Selecione um usuário para compartilhar...</option>
@@ -42,6 +43,7 @@
             action="{{
               route('lists.tasks.destroy', { id: task.id, list_id: list.id, qs: { _method: 'DELETE' } })
             }}">
+              {{ csrfField() }}
               <button type="submit" class="btn btn-primary">Apagar</button>
           </form>
         </div>

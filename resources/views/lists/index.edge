@@ -16,6 +16,7 @@
             action="{{
               route('lists.destroy', { id: list.id, qs: { _method: 'DELETE' } })
             }}">
+              {{ csrfField() }}
               <button type="submit" class="btn btn-primary">Apagar</button>
           </form>
         </div>

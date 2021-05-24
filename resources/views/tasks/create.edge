@@ -3,6 +3,7 @@
 @section('content')
   <h2>Nova Tarefa</h2>
   <form action="{{ route('lists.tasks.store', { list_id: list.id }) }}" method="POST">
+    {{ csrfField() }}
     @include('tasks/form')
     <div>
       <button type="submit" class="btn btn-primary">Cadastrar</button>
